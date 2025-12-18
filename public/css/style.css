@@ -1,0 +1,203 @@
+/* VERSION: 0.5.1 */
+/* --- CSS Variables --- */
+:root {
+    --page-bg: #1e1e1e;
+    --text-color: #e0e0e0;
+    --card-bg: #2a2d2e;
+    --border-color: #444;
+    --button-bg: #555;
+    --select-bg: #3c3c3c;
+    --selected-bg: #556677;
+    --grid-bg: #3c3c3c;
+    --grid-line: rgba(85, 85, 85, 1);
+    --guide-color: #55aaff;
+    --ruler-bg: var(--card-bg);
+    --ruler-text: var(--small-text-color);
+    --small-text-color: #aaa;
+    --button-hover: #6a6a6a;
+    --input-bg: var(--select-bg);
+    --input-border: var(--border-color);
+    --toolbar-width: 50px;
+}
+
+/* --- Basic Setup & Layout --- */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    background-color: var(--page-bg);
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- CORE APPLICATION LAYOUT --- */
+.app-wrapper {
+    display: flex;
+    flex-grow: 1;
+    min-height: 0;
+    overflow: hidden;
+}
+
+/* --- Canvas, Rulers, Guides --- */
+.canvas-wrapper {
+    flex-grow: 1;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+.ruler {
+    position: absolute;
+    background-color: var(--ruler-bg);
+    overflow: hidden;
+    user-select: none;
+    z-index: 5;
+}
+.ruler canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+#ruler-top {
+    top: 0; left: 20px; right: 0; height: 20px;
+    cursor: row-resize; /* For creating horizontal guides */
+}
+#ruler-left {
+    top: 20px; left: 0; bottom: 0; width: 20px;
+    cursor: col-resize; /* For creating vertical guides */
+}
+.app-container {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    box-sizing: border-box;
+    overflow: auto;
+}
+#guides-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 10;
+}
+.guide {
+    position: absolute;
+    background-color: var(--guide-color);
+    pointer-events: all;
+    opacity: 0.7;
+}
+.guide.horizontal {
+    width: 100%;
+    height: 1px;
+    cursor: ns-resize;
+}
+.guide.vertical {
+    width: 1px;
+    height: 100%;
+    cursor: ew-resize;
+}
+
+/* --- Control Groups & Palette in Menubar --- */
+.control-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+#color-palette {
+    flex-grow: 1;
+    justify-content: flex-start;
+    gap: 5px;
+}
+
+/* --- Pixel Grid Scene --- */
+.scene {
+    flex-grow: 1;
+    min-height: 0;
+    margin: 0 auto;
+    background-color: var(--grid-bg);
+    border: 1px solid var(--grid-line);
+    display: grid;
+    aspect-ratio: 1 / 1;
+    user-select: none;
+    max-width: 100%;
+    max-height: 100%;
+    transform-origin: center center;
+    transition: transform 0.1s ease-out;
+    position: relative;
+    z-index: 1;
+}
+.pixel {
+    background-color: transparent;
+    box-shadow: inset 0 0 0 0.5px var(--grid-line);
+}
+.scene.no-grid .pixel {
+    box-shadow: none;
+}
+
+/* --- Selection Marquee --- */
+@keyframes marching-ants { to { stroke-dashoffset: -8; } }
+.selection-marquee {
+    position: absolute;
+    border: 1px solid white;
+    outline: 1px solid black;
+    pointer-events: none;
+    display: none;
+    background-image: linear-gradient(45deg, #fff 25%, transparent 25%), linear-gradient(-45deg, #fff 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #fff 75%), linear-gradient(-45deg, transparent 75%, #fff 75%);
+    background-size: 8px 8px;
+    background-position: 0 0, 0 4px, 4px -4px, -4px 0px;
+    animation: marching-ants .5s linear infinite;
+    box-shadow: 0 0 0 1px black;
+    z-index: 20;
+}
+
+
+/* --- Component/Modal System --- */
+.component-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); display: flex; justify-content: center; align-items: center; z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+.component-modal-overlay.visible { opacity: 1; pointer-events: auto; }
+.component-container { background-color: var(--card-bg); color: var(--text-color); border-radius: 12px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); border: 1px solid var(--border-color); transform: scale(0.95); transition: transform 0.3s ease; max-height: 90vh; overflow-y: auto; }
+.component-header { display: flex; justify-content: space-between; align-items: center; padding: 10px 15px; border-bottom: 1px solid var(--border-color); }
+.component-header .title { font-weight: 600; }
+.close-btn { font-size: 1.8rem; font-weight: 300; color: var(--small-text-color); cursor: pointer; line-height: 1; padding: 0 5px; }
+.close-btn:hover { color: var(--text-color); }
+
+/* --- Draggable Preview Window --- */
+.draggable-window {
+    position: fixed;
+    z-index: 500;
+    bottom: 50px;
+    right: 315px;
+    width: 200px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+}
+.draggable-handle {
+    cursor: move;
+}
+.preview-content {
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#preview-canvas {
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+    background-color: var(--grid-bg);
+    border: 1px solid var(--grid-line);
+    max-width: 100%;
+}

@@ -1,0 +1,113 @@
+<div class="color-picker-container component-container">
+    <div class="color-picker-header component-header">
+        <span class="title">Color Picker</span>
+        <div class="header-controls">
+            <span class="close-btn" id="picker-close-btn">×</span>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="left-panel">
+            <div class="basic-colors">
+                <div class="section-title">Basic colors:</div>
+                <div class="color-grid" id="basic-colors-grid"></div>
+            </div>
+
+            <div class="right-panel">
+                <div class="color-spectrum-container" id="color-spectrum-container">
+                    <canvas id="color-spectrum" width="200" height="200"></canvas>
+                    <div class="spectrum-cursor" id="spectrum-cursor"></div>
+                </div>
+                <div class="color-slider-container" id="color-slider-container">
+                    <canvas id="color-slider" width="20" height="200"></canvas>
+                    <div class="slider-cursor" id="slider-cursor"></div>
+                </div>
+            </div>
+
+            <div class="custom-colors">
+                <div class="section-title">Custom colors:</div>
+                <div class="color-grid" id="custom-colors-grid"></div>
+            </div>
+        </div>
+
+        <div class="right-side">
+            <div class="color-info">
+                <div class="color-preview-section">
+                    <div class="color-preview" id="color-preview"></div>
+                    <span class="color-mode-label">Color | Solid</span>
+                </div>
+                <div class="color-values">
+                    <label>Hue:</label>
+                    <input type="number" id="hue" min="0" max="360" value="0">
+                    <label>Sat:</label>
+                    <input type="number" id="sat" min="0" max="100" value="100">
+                    <label>Lum:</label>
+                    <input type="number" id="lum" min="0" max="100" value="50">
+                    <label>Red:</label>
+                    <input type="number" id="red" min="0" max="255" value="255">
+                    <label>Green:</label>
+                    <input type="number" id="green" min="0" max="255" value="0">
+                    <label>Blue:</label>
+                    <input type="number" id="blue" min="0" max="255" value="0">
+                    <div class="hex-input-group">
+                        <label>Hex:</label>
+                        <input type="text" id="hex" value="#ff0000" maxlength="7">
+                    </div>
+                    <div class="hex-input-group">
+                        <label>RGB:</label>
+                        <input type="text" id="rgb-text" value="rgb(255, 0, 0)" readonly>
+                    </div>
+                    <div class="hex-input-group">
+                        <label>HSL:</label>
+                        <input type="text" id="hsl-text" value="hsl(0, 100%, 50%)" readonly>
+                    </div>
+                    <div class="hex-input-group">
+                        <label>RGBA:</label>
+                        <input type="text" id="rgba-text" value="rgba(255, 0, 0, 1)" readonly>
+                    </div>
+                    <div class="hex-input-group">
+                        <label>HSLA:</label>
+                        <input type="text" id="hsla-text" value="hsla(0, 100%, 50%, 1)" readonly>
+                    </div>
+                </div>
+                <button class="add-custom-btn" id="add-to-custom-colors">Add to Custom Colors</button>
+                <button class="add-custom-btn" id="clear-custom-colors">Clear Custom Colors</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="advanced-section">
+        <button class="advanced-toggle" id="advanced-toggle">
+            <span>Advanced Options</span>
+            <span class="advanced-toggle-icon" id="advanced-toggle-icon">▼</span>
+        </button>
+        <div class="advanced-content" id="advanced-content">
+            <div class="advanced-controls">
+                <label>Alpha:</label>
+                <input type="range" id="alpha-slider" min="0" max="100" value="100">
+                <span class="value-display" id="alpha-value">100%</span>
+                
+                <label>Cyan:</label>
+                <input type="range" id="cyan-slider" min="0" max="100" value="0">
+                <span class="value-display" id="cyan-value">0%</span>
+                
+                <label>Magenta:</label>
+                <input type="range" id="magenta-slider" min="0" max="100" value="100">
+                <span class="value-display" id="magenta-value">100%</span>
+                
+                <label>Yellow:</label>
+                <input type="range" id="yellow-slider" min="0" max="100" value="100">
+                <span class="value-display" id="yellow-value">100%</span>
+                
+                <label>Key (Black):</label>
+                <input type="range" id="key-slider" min="0" max="100" value="0">
+                <span class="value-display" id="key-value">0%</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-buttons">
+        <button id="picker-ok-btn">OK</button>
+        <button id="picker-cancel-btn">Cancel</button>
+    </div>
+</div>

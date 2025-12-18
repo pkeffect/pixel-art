@@ -1,0 +1,280 @@
+/* VERSION: 0.4.5 */
+/* --- Color Picker Styles --- */
+.color-picker-header {
+    cursor: move;
+}
+.color-picker-container {
+    padding: 15px;
+    max-width: 580px;
+    width: 100%;
+}
+.main-content {
+    display: grid;
+    grid-template-columns: 230px 1fr;
+    gap: 15px;
+    margin-bottom: 15px;
+    overflow: hidden;
+}
+.left-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.section-title {
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 6px;
+    margin-top: 2px;
+}
+.basic-colors, .custom-colors {
+    display: flex;
+    flex-direction: column;
+}
+.color-grid {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 3px;
+}
+.color-box {
+    width: 24px;
+    height: 24px;
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    border-radius: 3px;
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+.color-box:hover {
+    transform: scale(1.1);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+.custom-colors .color-grid {
+    grid-template-rows: repeat(2, 1fr);
+}
+.right-side {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-top: 0;
+}
+.right-panel {
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+}
+.color-spectrum-container {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    overflow: hidden;
+    cursor: crosshair;
+}
+.spectrum-cursor {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border: 2px solid white;
+    border-radius: 50%;
+    pointer-events: none;
+    box-shadow: 0 0 0 1px black, inset 0 0 0 1px black;
+    transform: translate(-50%, -50%);
+}
+.color-slider-container {
+    width: 20px;
+    height: 200px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+}
+.slider-cursor {
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    border: 1px solid white;
+    box-shadow: 0 0 0 1px black;
+    pointer-events: none;
+    left: 0;
+    transform: translateY(-50%);
+}
+.color-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.color-preview-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.color-preview {
+    width: 80px;
+    height: 80px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.1);
+    flex-shrink: 0;
+}
+.color-mode-label {
+    font-size: 12px;
+}
+.color-values {
+    display: grid;
+    grid-template-columns: 50px 1fr;
+    gap: 6px 8px;
+    align-items: center;
+}
+.color-values label {
+    font-size: 12px;
+    text-align: right;
+}
+.color-values input {
+    width: 100%;
+    padding: 3px 6px;
+    border: 1px solid var(--input-border);
+    border-radius: 3px;
+    font-size: 12px;
+    background-color: var(--input-bg);
+    color: var(--text-color);
+}
+.color-values input[readonly] {
+    background-color: var(--button-bg);
+    cursor: pointer;
+    font-family: monospace;
+}
+.color-values input[readonly]:hover {
+    background-color: var(--button-hover);
+}
+.hex-input-group {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 8px;
+    align-items: center;
+}
+.add-custom-btn {
+    padding: 6px 10px;
+    background-color: var(--button-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 11px;
+    transition: background-color 0.2s;
+    color: var(--text-color);
+}
+.add-custom-btn:hover {
+    background-color: var(--button-hover);
+}
+#clear-custom-colors {
+    background-color: #d32f2f;
+    color: white;
+    border-color: #d32f2f;
+}
+#clear-custom-colors:hover {
+    background-color: #b71c1c;
+}
+.advanced-section {
+    border-top: 1px solid var(--border-color);
+    padding-top: 12px;
+    margin-top: 12px;
+    padding-bottom: 12px;
+}
+.advanced-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    background-color: var(--button-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: background-color 0.2s;
+    color: var(--text-color);
+    width: 100%;
+}
+.advanced-toggle:hover {
+    background-color: var(--button-hover);
+}
+.advanced-toggle-icon {
+    transition: transform 0.3s;
+}
+.advanced-toggle-icon.expanded {
+    transform: rotate(180deg);
+}
+.advanced-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+.advanced-content.expanded {
+    max-height: 500px;
+    padding-top: 12px;
+}
+.advanced-controls {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 10px;
+    align-items: center;
+    padding-bottom: 8px;
+}
+.advanced-controls label {
+    font-size: 12px;
+}
+.advanced-controls .value-display {
+    font-size: 11px;
+    font-family: monospace;
+    min-width: 35px;
+    text-align: right;
+}
+.footer-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border-color);
+}
+.footer-buttons button {
+    padding: 8px 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: background-color 0.2s;
+    background-color: var(--button-bg);
+    color: var(--text-color);
+}
+.footer-buttons button:hover {
+    background-color: var(--button-hover);
+}
+.footer-buttons button#picker-ok-btn {
+    background-color: var(--selected-bg);
+    color: white;
+    border-color: var(--selected-bg);
+}
+.footer-buttons button#picker-ok-btn:hover {
+    background-color: #445566; /* REVISED: Darker version of new selected color */
+}
+
+/* --- Copied Tooltip --- */
+.copied-tooltip {
+    position: absolute;
+    background-color: #4CAF50;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    z-index: 1010;
+    pointer-events: none;
+    opacity: 0;
+    transform: translate(-50%, -120%);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.copied-tooltip.visible {
+    opacity: 1;
+    transform: translate(-50%, -150%);
+}

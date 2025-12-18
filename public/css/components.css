@@ -1,0 +1,88 @@
+/* VERSION: 0.0.4 */
+/* Shared styles for panel controls */
+.panel-controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.panel-controls button {
+    flex: 1;
+    padding: 8px;
+    background-color: var(--button-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.panel-controls button:hover:not(:disabled) {
+    background-color: var(--button-hover);
+}
+
+.panel-controls button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* --- Generic Modal/Component System --- */
+.component-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); display: flex; justify-content: center; align-items: center; z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+.component-modal-overlay.visible { opacity: 1; pointer-events: auto; }
+.component-container { background-color: var(--card-bg); color: var(--text-color); border-radius: 12px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); border: 1px solid var(--border-color); transform: scale(0.95); transition: transform 0.3s ease; max-height: 90vh; overflow-y: auto; position: relative; }
+.component-header { display: flex; justify-content: space-between; align-items: center; padding: 10px 15px; border-bottom: 1px solid var(--border-color); }
+.component-header .title { font-weight: 600; }
+.close-btn { font-size: 1.8rem; font-weight: 300; color: var(--small-text-color); cursor: pointer; line-height: 1; padding: 0 5px; }
+.close-btn:hover { color: var(--text-color); }
+.modal-content { padding: 15px 20px; font-size: 14px; line-height: 1.6; }
+
+/* --- Resizable Windows --- */
+.draggable-window { position: absolute; min-width: 220px; min-height: 220px; }
+.resize-handle { position: absolute; bottom: 0; right: 0; width: 15px; height: 15px; cursor: se-resize; }
+
+/* --- Preferences Modal --- */
+.preferences-modal-container {
+    width: 400px;
+    max-width: 90vw;
+}
+.preferences-content {
+    padding: 15px 20px;
+}
+.form-section {
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 15px;
+}
+.form-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 5px;
+}
+.form-section h4 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: var(--small-text-color);
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.form-row label {
+    font-size: 14px;
+}
+.form-row .color-swatch-input {
+    width: 50px;
+    height: 25px;
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    border-radius: 3px;
+}
+.form-row input[type="range"] {
+    width: 150px;
+}
