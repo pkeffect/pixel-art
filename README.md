@@ -100,5 +100,6 @@ You can adjust global settings in the **Preferences** menu (`Edit > Preferences`
 
 ---
 
-## 📜 License
-© 2025 Pixel Art Creator. All Rights Reserved. Designed for creators, by creators.
+## 📝 License
+
+This project is open-source. Feel free to modify and distribute.
