@@ -1,5 +1,7 @@
 # Pixel Art Creator v1.0
 
+![open Chess](./images/image-2025-12-18-190437.png)
+
 A professional-grade, browser-based pixel art suite designed for sprite creation, tiling textures, and precise digital illustration. Featuring a robust layer system, advanced color management, and local persistence, this tool provides a desktop-class experience directly in your browser.
 
 ## 🚀 Key Features
